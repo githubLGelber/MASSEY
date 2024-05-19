@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-
+import os
 
 dir_name = os.path.abspath(os.path.dirname('TB_Burden_Country.csv'))
 DATA = os.path.join(dir_name, 'TB_Burden_Country.csv')
