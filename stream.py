@@ -2,6 +2,8 @@ import pandas as pd
 import streamlit as st
 import os
 import numpy as np
+import sklearn
+import matplotlib.pyplot as plt
 from sklearn import preprocessing
 
 def clickedb():
@@ -57,8 +59,10 @@ if st.session_state.count==2:
     DATA4x=DATA4.dropna(subset=[user_input5])
     MEAN=(pd.DataFrame(DATA4x.loc[:,user_input5]).apply(np.mean, axis=0)).iloc[0]
     SD=(pd.DataFrame(DATA4x.loc[:,user_input5]).apply(np.std, axis=0)).iloc[0]
+    VAR=(pd.DataFrame(DATA4x.loc[:,user_input5]).apply(np.var, axis=0)).iloc[0]
     st.write('Mean of feature=', MEAN)
     st.write('Standard Deviation of feature=', SD)
+    st.write('Variance of feature=',VAR)
     st.line_chart(DATA4x,x='Year',y=user_input5)
 
 st.markdown("""---""")
@@ -82,8 +86,10 @@ if st.session_state.count==3:
     st.scatter_chart(std_scale3,x=user_input6,y=user_input7)
     st.write("Raw Data")
     st.scatter_chart(DATA5x,x=user_input6,y=user_input7)
+st.markdown("""-""")
 
     
+      
     
     
 
