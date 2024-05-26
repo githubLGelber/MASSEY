@@ -1,3 +1,5 @@
+#https://githublgelber-massey-stream-euketn.streamlit.app/
+
 import pandas as pd
 import streamlit as st
 import os
@@ -16,6 +18,20 @@ def clickedb2():
     
 def clickedb3():
     st.session_state.count=3
+    
+def Encodemap(REG):
+    if REG=='EMR':
+        return 0
+    elif REG=='EUR':
+        return 1
+    elif REG=='AFR':
+        return 2
+    elif REG=='WPR':
+        return 3
+    elif REG=='AMR':
+        return 4
+    elif REG=='SEA':
+        return 5
 
 dir_name = os.path.abspath(os.path.dirname('TB_Burden_Country.csv'))
 DATA = os.path.join(dir_name, 'TB_Burden_Country.csv')
@@ -101,7 +117,12 @@ if st.session_state.count==3:
     st.scatter_chart(std_scale3,x=user_input6,y=user_input7,color='ClusterClass')
     ss=metrics.silhouette_score(std_scale3[[user_input6,user_input7]].values, predictions)
     st.write('Silhouette Score=', ss)
-      
+    
+    #Not sure if this part makes sense as clusters from both plots are not labelled
+    st.write('Classification report displaying how clusters calculated using kMeans are similar to data filtered by the Region feature')
+    std_scale3['Regionmapped']=std_scale3['Regionfilter'].apply(Encodemap)
+    st.dataframe(metrics.classification_report(km.labels_,std_scale3['Regionmapped'],output_dict=True))
+          
     
     
 
